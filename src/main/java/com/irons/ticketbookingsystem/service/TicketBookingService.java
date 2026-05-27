@@ -43,4 +43,14 @@ public class TicketBookingService {
         log.info("Fetching all the tickets from database.");
         return ticketRepository.findAll();
     }
+
+    public List<Ticket> getTicketsBookedByCustomerName(String customerName) {
+        log.info("Fetching all the tickets booked by customer name: {}, from database", customerName);
+
+        List<Ticket> ticketList = ticketRepository.findByCustomerName(customerName);
+        if(ticketList.isEmpty()) {
+            throw new RuntimeException("Transaction Failed: Ticket allocation target not found.");
+        }
+        return ticketList;
+    }
 }
